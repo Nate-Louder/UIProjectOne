@@ -1,5 +1,5 @@
 <script lang="js">
-    import { entries } from '../../../stores';
+    import { entries, selectedEntry } from '../../../stores';
     import Button from '../../Components/Button/Button.svelte';
     import Question from '../../Components/Question/Question.svelte';
 
@@ -30,7 +30,30 @@
 
     let currentQuestion = 0;
     let answers = {};
-    let currentAnswer = '';
+    let currentAnswer = getPreviousAnswer();
+
+    function getPreviousAnswer() {
+        if ($selectedEntry) {
+            switch (currentQuestion) {
+                case 0:
+                    return $selectedEntry.title;
+                case 1:
+                    return $selectedEntry.timeOfDay;
+                case 2:
+                    return $selectedEntry.category;
+                case 3:
+                    return $selectedEntry.people;
+                case 4:
+                    return $selectedEntry.description;
+            }
+        }
+        return '';
+    }
+
+    function getMonth(today) {
+        let month = today.getMonth() + 1;
+        return month < 10 ? `0${month}` : month;
+    }
 
     function nextQuestion() {
         switch (currentQuestion) {
@@ -51,13 +74,21 @@
                 break;
         }
         if (currentQuestion >= questions.length - 1) {
-            entries.addEntry(answers);
+            let today = new Date();
+
+            if ($selectedEntry) {
+                entries.editEntry($selectedEntry, answers);
+                selectedEntry.clearSelection();
+            } else {
+                entries.addEntry(answers);
+                answers.date = `${today.getFullYear()}-${getMonth(today)}-${today.getDate()}`;
+            }
             window.location.href = '#/entry-history';
         } else {
             currentQuestion += 1;
         }
 
-        currentAnswer = '';
+        currentAnswer = getPreviousAnswer();
     }
 </script>
 

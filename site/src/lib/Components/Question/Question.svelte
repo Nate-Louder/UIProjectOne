@@ -55,13 +55,13 @@
             transform: translate(0%, 0);
         }
         25% {
-            transform: translate(4px, -5px);
+            transform: translate(0, -5px);
         }
         50% {
-            transform: translate(-4px, 3px);
+            transform: translate(0, 3px);
         }
         75% {
-            transform: translate(-5px, -2px);
+            transform: translate(0, -2px);
         }
         100% {
             transform: translate(0, 0);

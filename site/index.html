@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <title>Vite + Svelte</title>
+  <title>Relive</title>
   <link rel="stylesheet" href="/css/reset.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
@@ -13,6 +12,10 @@
 <div>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
+  <audio autoplay loop id="audio">
+    <source src=".\src\assets\track.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 </div>
 
 <style>
@@ -20,5 +23,9 @@
     font-family: 'Inter', sans-serif;
   }
 </style>
+
+<script>
+  document.getElementById("audio").volume = 0.1;
+</script>
 
 </html>

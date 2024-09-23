@@ -1,11 +1,14 @@
 <script lang="js">
     import HeaderLink from './HeaderLink.svelte';
+
+    let href = '';
+    $: href = window.location.href;
 </script>
 
 <div class="header">
-    <HeaderLink href="#/" label="Home" activeHref={window.location.href} />
+    <HeaderLink href="#/" label="Home" />
     <h1>ReLive</h1>
-    <HeaderLink href="#/entry-history" label="Entry History" activeHref={window.location.href} />
+    <HeaderLink href="#/entry-history" label="Entry History" />
 </div>
 
 <style lang="css">

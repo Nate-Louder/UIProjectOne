@@ -16,7 +16,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        width: 100%;
+        width: 95%;
         gap: 8px;
     }
     .text-input__label {

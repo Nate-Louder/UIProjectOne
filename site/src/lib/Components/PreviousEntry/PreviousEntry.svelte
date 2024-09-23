@@ -1,4 +1,8 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    import { selectedEntry } from '../../../stores';
+    import Button from '../Button/Button.svelte';
+
     export let entry = {
         title: 'Title',
         timeOfDay: 'Time of Day',
@@ -6,11 +10,29 @@
         people: 'People',
         description: 'Description',
     };
+
+    const dispatch = createEventDispatcher();
+
+    function deleteEntry(event) {
+        event.stopPropagation();
+        dispatch('delete', entry);
+    }
+
+    function editEntry() {
+        selectedEntry.selectEntry(entry);
+        window.location.href = '#/new-entry';
+    }
 </script>
 
 <div class="previous-entry">
-    <div class="entry">
-        <h2>{entry.title}</h2>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="entry" on:click={editEntry}>
+        <div class="header">
+            <h2 class="date">{entry.date}</h2>
+            <h2>{entry.title}</h2>
+            <div class="button-wrapper"><Button label="Delete" type="secondary" onClick={deleteEntry} /></div>
+        </div>
         <div class="top">
             <div class="wrapper">
                 <h3>Time of Day</h3>
@@ -40,10 +62,15 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 16px;
         width: 100%;
         border-bottom: 3px solid white;
         box-shadow: 0px 5px 5px 0px #f2c0ff88;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .wrapper {
@@ -110,16 +137,28 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 8px;
-        padding: 16px;
+        gap: 18px;
+        margin: 8px;
         color: white;
         width: 100%;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .entry:hover {
+        background: rgba(236, 151, 253, 0.168);
+        border-radius: 16px;
     }
 
     .top {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .date {
+        color: var(--primary-color);
+        width: 200px;
     }
 
     h2 {
@@ -135,5 +174,11 @@
         margin: 0;
         font-size: 120%;
         align-items: center;
+    }
+
+    .button-wrapper {
+        width: 200px;
+        display: flex;
+        justify-content: flex-end;
     }
 </style>

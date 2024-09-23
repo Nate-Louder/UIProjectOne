@@ -1,21 +1,9 @@
 <script lang="js">
     export let href = '';
     export let label = '';
-    export let activeHref = '';
-
-    let active = false;
-
-    const checkIfActive = () => {
-        if (window.location.href.split('/').pop() === href.substring(1).split('/').pop()) {
-            active = true;
-        } else {
-            active = false;
-        }
-    };
-    $: activeHref, checkIfActive();
 </script>
 
-<div class="header-link" class:active>
+<div class="header-link">
     <a {href}>{label}</a>
 </div>
 
@@ -35,10 +23,7 @@
         cursor: pointer;
         transition: all 0.2s;
         border-bottom: 4px solid transparent;
-    }
-
-    .header-link.active {
-        border-bottom: 4px solid white;
+        width: 200px;
     }
 
     .header-link:hover {
